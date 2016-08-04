@@ -1,4 +1,5 @@
 // Adjusted for Nederlab by Iwe Muiser
+
 (function() {
   nv.models.multiBarChartWithFocus = function() {
       "use strict";
@@ -18,7 +19,6 @@
           , brush = d3.svg.brush()
           , controls = nv.models.legend()
           , tooltip = nv.models.tooltip()
-  //        , focus = nv.models.focus(nv.models.line())
           ;
 
       var margin = {top: 30, right: 20, bottom: 50, left: 60}
@@ -37,15 +37,13 @@
           , reduceXTicks = true // if false a tick will show for every data point
           , staggerLabels = false
           , wrapLabels = false
-  /* -----------------------------------------*/
-          , focusEnable = true
+            , focusEnable = true
           , focusShowAxisY = false
           , focusShowAxisX = true
           , focusHeight = 80
           , extent
           , brushExtent = null
-  /* -----------------------------------------*/
-          , rotateLabels = 0
+            , rotateLabels = 0
           , x //can be accessed via chart.xScale()
           , y //can be accessed via chart.yScale()
           , x2
@@ -526,7 +524,9 @@
                   updateBrushBG();
 
                   var focusBarsWrap = g.select('.nv-barsWrap');
-                  var datumpumpum = data.filter(function(d) { return !d.disabled; })
+
+                  focusBarsWrap.datum(
+                    data.filter(function(d) { return !d.disabled; })
                         .map(function(d,i) {
                           return {
                             key: d.key,
@@ -536,9 +536,7 @@
                                 return multibar.x()(d,i) >= extent[0] && multibar.x()(d,i) <= extent[1];
                             }),
                           }
-                        });
-                  focusBarsWrap.datum(
-                      datumpumpum
+                    })
                   );
                   focusBarsWrap.transition().duration(duration).call(multibar);
 
